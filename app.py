@@ -49,6 +49,10 @@ class App:
 
         def button_callback(button_number):
             print(f"Button {button_number} clicked")
+            match button_number:
+                case 1:
+                    print(button_pressed[1])
+                
 
         for i in range(4):
             button = ctk.CTkButton(button_frame_1, text=f"Button {i+1}", command=lambda i=i: button_callback(i+1))
@@ -57,6 +61,20 @@ class App:
         for i in range(5):
             button = ctk.CTkButton(button_frame_2, text=f"Button {i+5+1}", command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
+
+
+class functions:
+    def record():
+        print("Record button clicked")
+        
+    def play():
+        print("Play button clicked")
+    
+    def stop():
+        print("Stop button clicked")
+    
+    def pause():
+        print("Pause button clicked")
 
 if __name__ == '__main__':
     App()
