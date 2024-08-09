@@ -7,13 +7,16 @@ with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
 
 image_path = config["image_path"]
+logo_path = config["logo_path"]
 __version__ = config["version"]
 
 class App:
     def __init__(self):
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
-        self.root.geometry("800x600")
+        self.root.geometry("1000x630")
+        self.root.resizable(False, False)
+        self.root.iconbitmap(logo_path)
         self.trackgerator()
         self.root.mainloop()
 
