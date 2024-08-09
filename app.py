@@ -22,7 +22,7 @@ class App:
 
     def trackgerator(self):
         print(f"Image path: {image_path}")
-        ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}").grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+        ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
         image_frame = ctk.CTkFrame(self.root)
         button_frame_1 = ctk.CTkFrame(self.root)
