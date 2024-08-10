@@ -17,7 +17,7 @@ class App:
     def __init__(self):
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
-        self.root.geometry("1000x630")
+        self.root.geometry("1000x470")
         self.root.resizable(False, False)
         self.root.iconbitmap(logo_path)
         self.trackgerator()
