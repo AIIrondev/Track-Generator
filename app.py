@@ -1,5 +1,7 @@
 import json
 import customtkinter as ctk
+from tkinter import filedialog
+from tkinter import messagebox
 from PIL import Image, ImageTk, UnidentifiedImageError
 
 # Load the configuration file
@@ -9,6 +11,7 @@ with open('Data/config/trackgenerator.config.json', 'r') as f:
 image_path = config["image_path"]
 logo_path = config["logo_path"]
 __version__ = config["version"]
+button_name = config["button_names"]
 
 class App:
     def __init__(self):
@@ -18,10 +21,10 @@ class App:
         self.root.resizable(False, False)
         self.root.iconbitmap(logo_path)
         self.trackgerator()
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
 
     def trackgerator(self):
-        print(f"Image path: {image_path}")
         ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
         image_frame = ctk.CTkFrame(self.root)
@@ -46,14 +49,16 @@ class App:
         image_label = ctk.CTkLabel(image_frame, image=photo_image)
         image_label.image = photo_image
         image_label.pack()
-
+        
+        button_pressed = [Menu_right.record, Menu_right.play, Menu_right.stop, Menu_right.pause, Menu_right.rewind, Menu_down.save, Menu_down.load, Menu_down.new, Menu_down.compile, Menu_down.settings, Menu_down.help]
+        
         def button_callback(button_number):
             print(f"Button {button_number} clicked")
-            match button_number:
-                case 1:
-                    print(button_pressed[1])
-        
-        button_name = ["Record", "Play", "Stop", "Pause", "Rewind", "Save", "Load", "New", "Compile", "Settings", "Help"]
+            for i in range(11):
+                if i == button_number-1:
+                    button.configure(text=button_pressed[i])
+                else:
+                    button.configure(text=button_name[i])
 
         for i in range(5):
             button = ctk.CTkButton(button_frame_1, text=button_name[i], command=lambda i=i: button_callback(i+1))
@@ -63,6 +68,15 @@ class App:
             button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
 
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.root.destroy()
+            exit(0)
+
+
+class recording:
+    def __init__(self):
+        pass
 
 class Menu_right:
     def record():

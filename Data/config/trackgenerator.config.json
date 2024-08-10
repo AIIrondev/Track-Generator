@@ -1,5 +1,7 @@
 {
     "image_path": "Data/images/trackgenerator.png",
     "logo_path": "Data/images/logo.ico",
-    "version": "0.1.0"
+    "version": "0.1.0",
+    "button_names": ["Record", "Play", "Stop", "Pause", "Rewind", "Save", "Load", "New", "Compile", "Settings", "Help"],
+    "button_pressed": ["Record", "Play", "Stop", "Pause", "Rewind", "Save", "Load", "New", "Compile", "Settings", "Help"]
 }
