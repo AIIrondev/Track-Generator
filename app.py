@@ -50,15 +50,33 @@ class App:
         image_label.image = photo_image
         image_label.pack()
         
-        button_pressed = [Menu_right.record, Menu_right.play, Menu_right.stop, Menu_right.pause, Menu_right.rewind, Menu_down.save, Menu_down.load, Menu_down.new, Menu_down.compile, Menu_down.settings, Menu_down.help]
-        
         def button_callback(button_number):
             print(f"Button {button_number} clicked")
-            for i in range(11):
-                if i == button_number-1:
-                    button.configure(text=button_pressed[i])
-                else:
-                    button.configure(text=button_name[i])
+            match button_number:
+                case 1:
+                    Menu_right.record()
+                case 2:
+                    Menu_right.play()
+                case 3:
+                    Menu_right.stop()
+                case 4:
+                    Menu_right.pause()
+                case 5:
+                    Menu_right.rewind()
+                case 6:
+                    Menu_down.save()
+                case 7:
+                    Menu_down.load()
+                case 8:
+                    Menu_down.new()
+                case 9:
+                    Menu_down.compile()
+                case 10:
+                    Menu_down.settings()
+                case 11:
+                    Menu_down.help()
+                case _:
+                    print("Invalid button number")
 
         for i in range(5):
             button = ctk.CTkButton(button_frame_1, text=button_name[i], command=lambda i=i: button_callback(i+1))
