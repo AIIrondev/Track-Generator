@@ -63,7 +63,7 @@ class App:
             button.pack(side="left", padx=10, pady=5)
 
 
-class functions:
+class Menu_right:
     def record():
         print("Record button clicked")
         
@@ -75,6 +75,19 @@ class functions:
     
     def pause():
         print("Pause button clicked")
+        
+class Menu_down:
+    def save():
+        print("Save button clicked")
+        
+    def load():
+        print("Load button clicked")
+    
+    def export():
+        print("Export button clicked")
+    
+    def import_():
+        print("Import button clicked")
 
 if __name__ == '__main__':
     App()
