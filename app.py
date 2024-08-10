@@ -83,11 +83,17 @@ class Menu_down:
     def load():
         print("Load button clicked")
     
-    def export():
-        print("Export button clicked")
+    def new():
+        print("New button clicked")
     
-    def import_():
-        print("Import button clicked")
+    def compile():
+        print("Compile button clicked")
+    
+    def settings():
+        print("Settings button clicked")+
+    
+    
+    
 
 if __name__ == '__main__':
     App()
