@@ -52,14 +52,15 @@ class App:
             match button_number:
                 case 1:
                     print(button_pressed[1])
-                
-
-        for i in range(4):
-            button = ctk.CTkButton(button_frame_1, text=f"Button {i+1}", command=lambda i=i: button_callback(i+1))
-            button.pack(padx=10, pady=5)
+        
+        button_name = ["Record", "Play", "Stop", "Pause", "Rewind", "Save", "Load", "New", "Compile", "Settings", "Help"]
 
         for i in range(5):
-            button = ctk.CTkButton(button_frame_2, text=f"Button {i+5+1}", command=lambda i=i: button_callback(i+5+1))
+            button = ctk.CTkButton(button_frame_1, text=button_name[i], command=lambda i=i: button_callback(i+1))
+            button.pack(padx=10, pady=5)
+
+        for i in range(6):
+            button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
 
 
@@ -76,6 +77,9 @@ class Menu_right:
     def pause():
         print("Pause button clicked")
         
+    def rewind():
+        print("Rewind button clicked")
+        
 class Menu_down:
     def save():
         print("Save button clicked")
@@ -90,7 +94,10 @@ class Menu_down:
         print("Compile button clicked")
     
     def settings():
-        print("Settings button clicked")+
+        print("Settings button clicked")
+        
+    def help():
+        print("Help button clicked")
     
     
     
