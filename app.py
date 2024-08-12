@@ -8,6 +8,9 @@ from PIL import Image, ImageTk, UnidentifiedImageError
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
 
+record.initialise()
+
+record_active = False
 image_path = config["image_path"]
 logo_path = config["logo_path"]
 __version__ = config["version"]
@@ -22,10 +25,11 @@ class App:
         self.root.iconbitmap(logo_path)
         self.trackgerator()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.root.bind("<KeyPress>", self.record_api)
         self.root.mainloop()
 
     def trackgerator(self):
-        ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+        ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}", text_color="blue").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
         image_frame = ctk.CTkFrame(self.root)
         button_frame_1 = ctk.CTkFrame(self.root)
@@ -49,7 +53,7 @@ class App:
         image_label = ctk.CTkLabel(image_frame, image=photo_image)
         image_label.image = photo_image
         image_label.pack()
-        
+
         def button_callback(button_number):
             print(f"Button {button_number} clicked")
             match button_number:
@@ -86,20 +90,53 @@ class App:
             button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
 
+    def record_api(self, record_input):
+        match record_input.char:
+            case "w":
+                record.up()
+            case "a":
+                record.left()
+            case "s":
+                record.down()
+            case "d":
+                record.right()
+            case "":
+                self.on_closing()
+            case "":
+                self.save()
+
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             self.root.destroy()
             exit(0)
 
 
-class recording:
-    def __init__(self):
-        pass
+
+class record:
+    def initialise():
+        if os.path.exists("Data/config/path.txt"):
+            os.remove("Data/config/path.txt")
+        else:
+            with open("Data/config/path.txt", "w") as f:
+                f.write("")
+    def up():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("1")
+    def down():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("2")
+    def left():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("3")
+    def right():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("4")
 
 class Menu_right:
     def record():
         print("Record button clicked")
         
+
     def play():
         print("Play button clicked")
     
