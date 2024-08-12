@@ -3,12 +3,14 @@ import customtkinter as ctk
 from tkinter import filedialog
 from tkinter import messagebox
 from PIL import Image, ImageTk, UnidentifiedImageError
+import os
+import webbrowser
 
 # Load the configuration file
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
 
-record.initialise()
+
 
 record_active = False
 image_path = config["image_path"]
@@ -17,6 +19,7 @@ __version__ = config["version"]
 button_name = config["button_names"]
 
 class App:
+    global record_active
     def __init__(self):
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
@@ -90,12 +93,6 @@ class App:
             button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
 
-    def record_start(self):
-        if record_active:
-            pass
-        else:
-            record_active = True
-
     def record_api(self, record_input):
         if record_active:
             match record_input.char:
@@ -118,8 +115,8 @@ class App:
             exit(0)
 
 
-
 class record:
+    global record_active
     def initialise():
         if os.path.exists("Data/config/path.txt"):
             os.remove("Data/config/path.txt")
@@ -131,28 +128,42 @@ class record:
             f.write("1")
     def down():
         with open("Data/config/path.txt", "a") as f:
-            f.write("2")
+            f.write("3")
     def left():
         with open("Data/config/path.txt", "a") as f:
-            f.write("3")
+            f.write("2")
     def right():
         with open("Data/config/path.txt", "a") as f:
             f.write("4")
 
 class Menu_right:
     def record():
+        global record_active
         print("Record button clicked")
-        
+        if record_active:
+            pass
+        else:
+            record_active = True
 
     def play():
         print("Play button clicked")
-    
+
     def stop():
+        global record_active
         print("Stop button clicked")
-    
+        if record_active:
+            record_active = False
+        else:
+            pass
+
     def pause():
+        global record_active
         print("Pause button clicked")
-        
+        if record_active:
+            record_active = False
+        else:
+            pass
+
     def rewind():
         print("Rewind button clicked")
         
@@ -174,9 +185,12 @@ class Menu_down:
         
     def help():
         print("Help button clicked")
-    
-    
-    
+        if messagebox.askokcancel("Help", "If you click ok youre browser will open the help Website for you."):
+            pass
+            #webbrowser("https://website.github.com")
+        else:
+            pass
 
 if __name__ == '__main__':
+    record.initialise()
     App()
