@@ -90,20 +90,27 @@ class App:
             button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
 
+    def record_start(self):
+        if record_active:
+            pass
+        else:
+            record_active = True
+
     def record_api(self, record_input):
-        match record_input.char:
-            case "w":
-                record.up()
-            case "a":
-                record.left()
-            case "s":
-                record.down()
-            case "d":
-                record.right()
-            case "":
-                self.on_closing()
-            case "":
-                self.save()
+        if record_active:
+            match record_input.char:
+                case "w":
+                    record.up()
+                case "a":
+                    record.left()
+                case "s":
+                    record.down()
+                case "d":
+                    record.right()
+                case "":
+                    self.on_closing()
+                case "":
+                    self.save()
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
