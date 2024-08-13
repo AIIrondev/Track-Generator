@@ -71,26 +71,28 @@ class App:
                 case 5:
                     Menu_right.rewind()
                 case 6:
-                    Menu_down.save()
+                    Menu_right.split()
                 case 7:
-                    Menu_down.load()
+                    Menu_down.save()
                 case 8:
-                    Menu_down.new()
+                    Menu_down.load()
                 case 9:
-                    Menu_down.compile()
+                    Menu_down.new()
                 case 10:
-                    Menu_down.settings()
+                    Menu_down.compile()
                 case 11:
+                    Menu_down.settings()
+                case 12:
                     Menu_down.help()
                 case _:
                     print("Invalid button number")
 
-        for i in range(5):
+        for i in range(6):
             button = ctk.CTkButton(button_frame_1, text=button_name[i], command=lambda i=i: button_callback(i+1))
             button.pack(padx=10, pady=5)
 
         for i in range(6):
-            button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
+            button = ctk.CTkButton(button_frame_2, text=button_name[i+6], command=lambda i=i: button_callback(i+6+1))
             button.pack(side="left", padx=10, pady=5)
 
     def record_api(self, record_input):
@@ -104,6 +106,8 @@ class App:
                     record.down()
                 case "d":
                     record.right()
+                case "x":
+                    record.split()
                 case "":
                     self.on_closing()
                 case "":
@@ -125,16 +129,19 @@ class record:
                 f.write("")
     def up():
         with open("Data/config/path.txt", "a") as f:
-            f.write("1")
+            f.write("1|")
     def down():
         with open("Data/config/path.txt", "a") as f:
-            f.write("3")
+            f.write("3|")
     def left():
         with open("Data/config/path.txt", "a") as f:
-            f.write("2")
+            f.write("2|")
     def right():
         with open("Data/config/path.txt", "a") as f:
-            f.write("4")
+            f.write("4|")
+    def split():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("5|")
 
 class Menu_right:
     def record():
@@ -166,7 +173,12 @@ class Menu_right:
 
     def rewind():
         print("Rewind button clicked")
-        
+
+    def split():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("5|")
+
+
 class Menu_down:
     def save():
         print("Save button clicked")
