@@ -7,8 +7,10 @@ class save:
         with open(self.filepath, "r") as f:
             self.content = f.read()
         self.content = self.content.split("|")
+        self.convert_to_scsp()
 
     def convert_to_scsp(self):
+        generate_ab_function = 0
         with open("Data/temp/temp.scsp", "w") as f:
             f.write("init()\nvariable.init()\nmodule.init()\nmotor.init()\nsensor.init()\ncalibration.init()\nai.init()\ngenerate_ab(new_function)\n")
             for i in self.content:
@@ -22,7 +24,6 @@ class save:
                     case 4:
                         f.write("tank(-180)")
                     case 5:
-                        generate_ab_function = 0
                         f.write(f"generate_ab({generate_ab_function})")
                         generate_ab_function += 1
             f.write("main.init()\nswitch()\ncalibrate()\nai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})\n")
@@ -33,6 +34,4 @@ class save:
 
 
 if __name__ == "__main__":
-    save().convert_to_scsp()
-    shutil.move("Data/temp/temp.scsp", "Data/config/temp.scsp")
-    os.remove("Data/config/path.txt")
+    save()
