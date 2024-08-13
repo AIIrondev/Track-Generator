@@ -24,7 +24,7 @@ class save:
                     case "4":
                         f.write("tank(-90)\n")
                     case "5":
-                        f.write(f"generate_ab({generate_ab_function})")
+                        f.write(f"generate_ab({generate_ab_function})\n")
                         generate_ab_function += 1
             f.write("main.init()\nswitch()\ncalibrate()\nai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})\n")
             for i in range(generate_ab_function):

@@ -5,12 +5,11 @@ from tkinter import messagebox
 from PIL import Image, ImageTk, UnidentifiedImageError
 import os
 import webbrowser
+from Test_3 import save
 
 # Load the configuration file
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
-
-
 
 record_active = False
 image_path = config["image_path"]
@@ -181,8 +180,8 @@ class Menu_right:
 
 class Menu_down:
     def save():
-        print("Save button clicked")
-        
+        save()
+
     def load():
         print("Load button clicked")
     
