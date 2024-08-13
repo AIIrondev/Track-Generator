@@ -15,15 +15,15 @@ class save:
             f.write("init()\nvariable.init()\nmodule.init()\nmotor.init()\nsensor.init()\ncalibration.init()\nai.init()\ngenerate_ab(new_function)\n")
             for i in self.content:
                 match i:
-                    case 1:
-                        f.write("drive(10)")
-                    case 2:
-                        f.write("tank(180)")
-                    case 3:
-                        f.write("drive(-10)")
-                    case 4:
-                        f.write("tank(-180)")
-                    case 5:
+                    case "1":
+                        f.write("drive(5)\n")
+                    case "2":
+                        f.write("tank(90)\n")
+                    case "3":
+                        f.write("drive(-5)\n")
+                    case "4":
+                        f.write("tank(-90)\n")
+                    case "5":
                         f.write(f"generate_ab({generate_ab_function})")
                         generate_ab_function += 1
             f.write("main.init()\nswitch()\ncalibrate()\nai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})\n")
