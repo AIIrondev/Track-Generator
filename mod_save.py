@@ -53,7 +53,7 @@ class Save:
             f.write("main.init()\nswitch()\ncalibrate()\nai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})\n")
             for i in range(generate_ab_function):
                 f.write(f"switch()\n")
-                f.write(f"generate_ab({i})\n")
+                f.write(f"call({i})\n")
             f.write("main.run()")
 
     def compile(self, file):
@@ -170,11 +170,11 @@ class Save:
                         f.write("\n  if await switch():")
                 case "call":
                     if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                        f.write(f"\n  await {value}()")
+                        f.write(f"\n  await ({value})")
                     elif last_function == "switch":
-                        f.write(f"\n    await {value}()")
+                        f.write(f"\n    await ({value})")
                 case "generate_ab":
-                    f.write(f"\nasync def {value}():") # async dev (value) <- function_name()
+                    f.write(f"\nasync def ({value}):") # async dev (value) <- function_name()
                 case "ai.run":
                     if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                         f.write("\n  global calibration")
