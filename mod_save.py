@@ -12,7 +12,7 @@ conf_file = "conf.json"
 llsp3_file_path = 'Projekt.llsp3'
 extracted_folder = llsp3_file_path + 'projectbody.json'
 
-class save:
+class Save:
     def __init__(self):
         self.filepath = "Data/config/path.txt"
         with open(self.filepath, "r") as f:
@@ -45,12 +45,7 @@ class save:
             f.write("main.run()")
 
     def compile(self, file):
-        """
-        Compiles the given file if it has a valid extension (.scsp).
-
-        Parameters:
-            file (str): The path of the file to compile.
-        """
+        global content_compile
         if file.endswith(".scsp"):
             with open(file, "r") as f:
                 content = f.readlines()
@@ -60,20 +55,8 @@ class save:
             print(f"Error: The file {file} is not a valid file type.")
 
     def get_active_function(self, line):
-        """
-        Extracts the active function and its value from a line.
-
-        Parameters:
-            line (str): The line to extract the function from.
-
-        Returns:
-            tuple: A tuple containing the function and its value.
-        """
-        content_line = line
-        function, variable = content_line.split("(")
-        variable = variable.replace("(","")
-        variable = variable.replace(")","")
-        variable = variable.replace("\n","")
+        function, variable = line.split("(")
+        variable = variable.replace("(", "").replace(")", "").replace("\n", "")
         return function, variable
 
     def write_function(self, function,file,value=False):
@@ -265,23 +248,18 @@ class save:
             os.remove(manifest_path)
             os.remove(icon_svg_path)
             os.remove(projectbody_path)
+            shutil.move(os.path.join(directory, project_name + '.py'), "Data/temp/temp.py")
             os.rmdir(directory)
             #os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
     def main(self):
-        """
-        Main function for compiling the file.
-
-        Parameters:
-            file (str): The name of the file to compile.
-        """
+        global content_compile
         file = "Data/temp/temp.scsp"
-        file_name = file.split(".")
-        file_dir = file_name[1]
-        file_name = file_name[0]
+        file_name = file.split(".")[0]
+        file_dir = file_name + "_dir"
         with open(f"{file_name}.py", "w") as f:
             f.write("")
         for line in content_compile:
-            function, value = get_active_function(line)
+            function, value = self.get_active_function(line)
             self.write_function(function, file, value)
         self.compile_llsp3(file_name + ".py", file_dir, file_name)
