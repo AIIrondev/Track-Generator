@@ -72,7 +72,7 @@ class Save:
         print(f"Writing {function} function...")
         file_name = file.split(".")
         file_name = file_name[0]
-        with open(f"{file_name}.py", "a") as f:
+        with open(f"{os.path.join(os.getcwd() + "\\Data\\temp\\llsp3", file_name)}.py", "a") as f:
             match function:
                 case "log":
                     if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
@@ -236,7 +236,7 @@ class Save:
         manifest_path = os.path.join(directory, 'manifest.json')
         with open(manifest_path, 'w') as file:
             json.dump(manifest_data, file)
-        llsp3_file_path = os.path.join('project_name' + '.llsp3')
+        llsp3_file_path = os.path.join(project_name + '.llsp3')
         with zipfile.ZipFile(llsp3_file_path, 'w') as zip_ref:
             for foldername, subfolders, filenames in os.walk(directory):
                 for filename in filenames:
@@ -248,16 +248,15 @@ class Save:
             os.remove(manifest_path)
             os.remove(icon_svg_path)
             os.remove(projectbody_path)
-            shutil.move(os.path.join(directory, project_name + '.py'), "Data/temp/temp.py")
             os.rmdir(directory)
-            #os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
+            os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
     def main(self):
         global content_compile
-        file = "Data/temp/temp.scsp"
+        file = "temp.scsp"
         file_name = file.split(".")[0]
-        file_dir = file_name + "_dir"
-        with open(f"{file_name}.py", "w") as f:
+        file_dir = os.getcwd() + "\\Data\\temp\\llsp3"
+        with open(f"{os.path.join(file_dir, file_name)}.py", "w") as f:
             f.write("")
         for line in content_compile:
             function, value = self.get_active_function(line)

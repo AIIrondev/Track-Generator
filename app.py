@@ -5,7 +5,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk, UnidentifiedImageError
 import os
 import webbrowser
-from mod_save import Save
+from mod_save import Save as save
 
 # Load the configuration file
 with open('Data/config/trackgenerator.config.json', 'r') as f:
