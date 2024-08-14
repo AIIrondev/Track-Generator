@@ -37,7 +37,7 @@ class Save:
         generate_ab_function = 1
         generate_ab_function_names = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
         with open("Data/temp/temp.scsp", "w") as f:
-            f.write("init()\nvariable.init()\nmodule.init()\nmotor.init()\nsensor.init()\ncalibration.init()\nai.init()\ngenerate_ab(0)\n")
+            f.write("init()\nvariable.init()\nmodule.init()\nmotor.init()\nsensor.init()\ncalibration.init()\nai.init()\ngenerate_ab(zero)\n")
             for i in self.content:
                 match i:
                     case "1":
@@ -173,9 +173,9 @@ class Save:
                         f.write("\n  if await switch():")
                 case "call":
                     if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                        f.write(f"\n  await ({value})")
+                        f.write(f"\n  await {value}()")
                     elif last_function == "switch":
-                        f.write(f"\n    await ({value})")
+                        f.write(f"\n    await {value}()")
                 case "generate_ab":
                     f.write(f"\nasync def {value}():") # async dev (value) <- function_name()
                 case "ai.run":
@@ -264,7 +264,7 @@ class Save:
             os.remove(icon_svg_path)
             os.remove(projectbody_path)
             os.rmdir(directory)
-            os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
+            os.remove(os.path.join("Data\\temp", project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
     def main(self):
         global content_compile
