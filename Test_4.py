@@ -12,7 +12,7 @@ class App:
         self.image_frame.pack()
 
         # Load and display the image
-        self.load_image("path/to/your/image.jpg")
+        self.load_image("Data/images/trackgenerator.png")
 
         # Create a canvas for drawing
         self.canvas = tk.Canvas(root, width=500, height=500, bg="white")

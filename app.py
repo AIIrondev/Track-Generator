@@ -117,7 +117,6 @@ class App:
             self.root.destroy()
             exit(0)
 
-
 class record:
     global record_active
     def initialise():
