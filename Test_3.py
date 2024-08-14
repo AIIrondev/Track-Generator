@@ -253,7 +253,7 @@ class save:
         manifest_path = os.path.join(directory, 'manifest.json')
         with open(manifest_path, 'w') as file:
             json.dump(manifest_data, file)
-        llsp3_file_path = os.path.join(project_name + '.llsp3')
+        llsp3_file_path = os.path.join('project_name' + '.llsp3')
         with zipfile.ZipFile(llsp3_file_path, 'w') as zip_ref:
             for foldername, subfolders, filenames in os.walk(directory):
                 for filename in filenames:
@@ -266,7 +266,7 @@ class save:
             os.remove(icon_svg_path)
             os.remove(projectbody_path)
             os.rmdir(directory)
-            os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
+            #os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
     def main(self):
         """
