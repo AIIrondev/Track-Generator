@@ -8,7 +8,7 @@ from datetime import datetime
 content_compile = []
 last_function = "False"
 file_name = ""
-conf_file = "conf.json"
+conf_file = "Data/config/conf.json"
 llsp3_file_path = 'Projekt.llsp3'
 extracted_folder = llsp3_file_path + 'projectbody.json'
 
