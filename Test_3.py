@@ -1,5 +1,16 @@
 import os
 import shutil
+import sys
+import json
+import zipfile
+from datetime import datetime
+
+content_compile = []
+last_function = "False"
+file_name = ""
+conf_file = "conf.json"
+llsp3_file_path = 'Projekt.llsp3'
+extracted_folder = llsp3_file_path + 'projectbody.json'
 
 class save:
     def __init__(self):
@@ -33,7 +44,7 @@ class save:
                 f.write(f"generate_ab({i})\n")
             f.write("main.run()")
 
-    def compile(file):
+    def compile(self, file):
         """
         Compiles the given file if it has a valid extension (.scsp).
 
@@ -48,7 +59,7 @@ class save:
         else:
             print(f"Error: The file {file} is not a valid file type.")
 
-    def get_active_function(line):
+    def get_active_function(self, line):
         """
         Extracts the active function and its value from a line.
 
@@ -65,7 +76,7 @@ class save:
         variable = variable.replace("\n","")
         return function, variable
 
-    def write_function(function,file,value=False):
+    def write_function(self, function,file,value=False):
         """
         Writes the specified function and its value to a Python file.
 
@@ -189,7 +200,7 @@ class save:
             last_function = function
             print(f"{last_function} function written...")
 
-    def compile_llsp3(file, directory, project_name):
+    def compile_llsp3(self, file, directory, project_name):
         os.makedirs(directory, exist_ok=True)
         projectbody_data = {
             "main": ""
@@ -242,7 +253,7 @@ class save:
         manifest_path = os.path.join(directory, 'manifest.json')
         with open(manifest_path, 'w') as file:
             json.dump(manifest_data, file)
-        llsp3_file_path = os.path.join(directory, project_name + '.llsp3')
+        llsp3_file_path = os.path.join(project_name + '.llsp3')
         with zipfile.ZipFile(llsp3_file_path, 'w') as zip_ref:
             for foldername, subfolders, filenames in os.walk(directory):
                 for filename in filenames:
@@ -257,7 +268,7 @@ class save:
             os.rmdir(directory)
             os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
-    def main():
+    def main(self):
         """
         Main function for compiling the file.
 
@@ -272,23 +283,5 @@ class save:
             f.write("")
         for line in content_compile:
             function, value = get_active_function(line)
-            write_function(function, file, value)
-        compile_llsp3(file_name + ".py", file_dir, file_name)
-
-    def check_for_format(requestet, value):
-        """
-        Checks if the value matches the requested format.
-
-        Parameters:
-            requestet (str): The requested format.
-            value (str): The value to check.
-        """
-        if requestet == "int":
-            try:
-                int(value)
-            except:
-                messagebox.askokcancel(f"Error: The value {value} is not a valid integer.")
-
-
-if __name__ == "__main__":
-    save()
+            self.write_function(function, file, value)
+        self.compile_llsp3(file_name + ".py", file_dir, file_name)
