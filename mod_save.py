@@ -34,9 +34,10 @@ class Save:
         self.main()
 
     def convert_to_scsp(self):
-        generate_ab_function = 0
+        generate_ab_function = 1
+        generate_ab_function_names = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
         with open("Data/temp/temp.scsp", "w") as f:
-            f.write("init()\nvariable.init()\nmodule.init()\nmotor.init()\nsensor.init()\ncalibration.init()\nai.init()\ngenerate_ab(new_function)\n")
+            f.write("init()\nvariable.init()\nmodule.init()\nmotor.init()\nsensor.init()\ncalibration.init()\nai.init()\ngenerate_ab(0)\n")
             for i in self.content:
                 match i:
                     case "1":
@@ -48,12 +49,14 @@ class Save:
                     case "4":
                         f.write("tank(-90)\n")
                     case "5":
-                        f.write(f"generate_ab({generate_ab_function})\n")
+                        f.write(f"generate_ab({generate_ab_function_names[generate_ab_function]})\n")
                         generate_ab_function += 1
             f.write("main.init()\nswitch()\ncalibrate()\nai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})\n")
+            f.write("switch()\n")
+            f.write("call(new_function)\n")
             for i in range(generate_ab_function):
                 f.write(f"switch()\n")
-                f.write(f"call({i})\n")
+                f.write(f"call({generate_ab_function_names[i]})\n")
             f.write("main.run()")
 
     def compile(self, file):
@@ -84,7 +87,7 @@ class Save:
         print(f"Writing {function} function...")
         file_name = file.split(".")
         file_name = file_name[0]
-        with open(f"{os.path.join(os.getcwd() + "\\Data\\temp\\llsp3", file_name)}.py", "a") as f:
+        with open(f"{os.path.join(os.getcwd() + "\\Data\\temp", file_name)}.py", "a") as f:
             match function:
                 case "log":
                     if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
@@ -174,7 +177,7 @@ class Save:
                     elif last_function == "switch":
                         f.write(f"\n    await ({value})")
                 case "generate_ab":
-                    f.write(f"\nasync def ({value}):") # async dev (value) <- function_name()
+                    f.write(f"\nasync def {value}():") # async dev (value) <- function_name()
                 case "ai.run":
                     if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                         f.write("\n  global calibration")
@@ -214,7 +217,7 @@ class Save:
         </svg>
         """
         projectbody_path = os.path.join(directory, 'projectbody.json')
-        with open(file, 'r') as file:
+        with open(os.path.join("Data\\temp", file), 'r') as file:
             projectbody_data['main'] = file.read()
         with open(projectbody_path, 'w') as file:
             json.dump(projectbody_data, file)
@@ -248,7 +251,7 @@ class Save:
         manifest_path = os.path.join(directory, 'manifest.json')
         with open(manifest_path, 'w') as file:
             json.dump(manifest_data, file)
-        llsp3_file_path = os.path.join(directory, project_name + '.llsp3')
+        llsp3_file_path = os.path.join(project_name + '.llsp3')
         with zipfile.ZipFile(llsp3_file_path, 'w') as zip_ref:
             for foldername, subfolders, filenames in os.walk(directory):
                 for filename in filenames:
@@ -269,7 +272,7 @@ class Save:
         file_name = file.split(".")[0]
         file_dir = os.getcwd() + "\\Data\\temp\\llsp3"
         os.makedirs(file_dir, exist_ok=True)
-        with open(f"{os.path.join(file_dir, file_name)}.py", "w") as f:
+        with open(f"{os.path.join("Data\\temp", file_name)}.py", "w") as f:
             f.write("")
         for line in content_compile:
             function, value = self.get_active_function(line)
