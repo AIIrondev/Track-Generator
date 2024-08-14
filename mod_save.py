@@ -12,6 +12,17 @@ conf_file = "conf.json"
 llsp3_file_path = 'Projekt.llsp3'
 extracted_folder = llsp3_file_path + 'projectbody.json'
 
+with open(conf_file, "r") as file:
+    content = json.load(file)
+    calibrate = content["calibrate"]
+    __version__ = content["version"]
+    module = content["module"]
+    motor = content["motor"]
+    sensor = content["sensor"]
+    variables = content["variables"]
+    ai = content["ai"]
+    switch = content["switch"]
+
 class Save:
     def __init__(self):
         self.filepath = "Data/config/path.txt"
@@ -19,6 +30,7 @@ class Save:
             self.content = f.read()
         self.content = self.content.split("|")
         self.convert_to_scsp()
+        self.compile("Data/temp/temp.scsp")
         self.main()
 
     def convert_to_scsp(self):
@@ -236,7 +248,7 @@ class Save:
         manifest_path = os.path.join(directory, 'manifest.json')
         with open(manifest_path, 'w') as file:
             json.dump(manifest_data, file)
-        llsp3_file_path = os.path.join(project_name + '.llsp3')
+        llsp3_file_path = os.path.join(directory, project_name + '.llsp3')
         with zipfile.ZipFile(llsp3_file_path, 'w') as zip_ref:
             for foldername, subfolders, filenames in os.walk(directory):
                 for filename in filenames:
@@ -256,6 +268,7 @@ class Save:
         file = "temp.scsp"
         file_name = file.split(".")[0]
         file_dir = os.getcwd() + "\\Data\\temp\\llsp3"
+        os.makedirs(file_dir, exist_ok=True)
         with open(f"{os.path.join(file_dir, file_name)}.py", "w") as f:
             f.write("")
         for line in content_compile:
