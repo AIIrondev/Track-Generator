@@ -43,12 +43,16 @@ class Save:
                     case "1":
                         f.write("drive(5)\n")
                     case "2":
-                        f.write("tank(90)\n")
+                        f.write("tank(180)\n")
                     case "3":
                         f.write("drive(-5)\n")
                     case "4":
-                        f.write("tank(-90)\n")
+                        f.write("tank(-180)\n")
                     case "5":
+                        f.write("tank(90)\n")
+                    case "6":
+                        f.write("tank(-90)\n")
+                    case "7":
                         f.write(f"generate_ab({generate_ab_function_names[generate_ab_function]})\n")
                         generate_ab_function += 1
             f.write("main.init()\nswitch()\ncalibrate()\nai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})\n")

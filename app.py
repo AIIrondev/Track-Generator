@@ -105,6 +105,10 @@ class App:
                     record.down()
                 case "d":
                     record.right()
+                case "q":
+                    record.left_half()
+                case "e":
+                    record.right_half()
                 case "x":
                     record.split()
                 case "":
@@ -137,9 +141,15 @@ class record:
     def right():
         with open("Data/config/path.txt", "a") as f:
             f.write("4|")
-    def split():
+    def left_half():
         with open("Data/config/path.txt", "a") as f:
             f.write("5|")
+    def right_half():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("6|")
+    def split():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("7|")
 
 class Menu_right:
     def record():
@@ -176,6 +186,9 @@ class Menu_right:
         with open("Data/config/path.txt", "a") as f:
             f.write("5|")
 
+class draw:
+    def line():
+        print("Line button clicked")
 
 class Menu_down:
     def save():
