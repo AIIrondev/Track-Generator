@@ -6,6 +6,7 @@ from PIL import Image, ImageTk, UnidentifiedImageError
 import os
 import webbrowser
 from mod_save import Save as save
+import tkinter as tk
 
 # Load the configuration file
 with open('Data/config/trackgenerator.config.json', 'r') as f:
@@ -31,7 +32,11 @@ class App:
         self.trackgerator()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.bind("<KeyPress>", self.record_api)
+        self.root.bind("<Button-1>", self.printcoords)
         self.root.mainloop()
+
+    def printcoords(self, event):
+        print(event.x, event.y)
 
     def trackgerator(self):
 
@@ -45,11 +50,12 @@ class App:
         button_frame_1.grid(row=0, column=1, padx=10, pady=10)
         button_frame_2.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
         self.canvas = ctk.CTkCanvas(image_frame, width=800, height=500, bg="white")
-
+        self.canvas.pack()
         try:
             image = Image.open(image_path)
             resized_image = image.resize((800, 500))
-            photo_image = ImageTk.PhotoImage(resized_image)
+            self.photo_image = ImageTk.PhotoImage(resized_image)
+            self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo_image, tags="background")
         except FileNotFoundError:
             print(f"Error: File not found at {image_path}")
             return
@@ -57,10 +63,10 @@ class App:
             print(f"Error: Cannot identify image file at {image_path}")
             return
 
-        self.canvas.create_image(0, 0, anchor="nw", image=photo_image)
-        image_label = ctk.CTkLabel(image_frame, image=photo_image)
-        image_label.image = photo_image
-        image_label.pack()
+        self.photo_image = ImageTk.PhotoImage(resized_image)
+        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo_image, tags="background")
+
+        self.canvas.create_oval(700, 490, 730, 500, fill="red", tags="point")
 
         def button_callback(button_number):
             print(f"Button {button_number} clicked")
