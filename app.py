@@ -34,8 +34,6 @@ class App:
         self.root.mainloop()
 
     def trackgerator(self):
-        self.canvas = ctk.CTkCanvas(self.root, width=800, height=500, bg="white")
-        self.canvas.grid(row=0, column=0, padx=10, pady=10)
 
         ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}", text_color="blue").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
@@ -46,6 +44,7 @@ class App:
         image_frame.grid(row=0, column=0, padx=10, pady=10)
         button_frame_1.grid(row=0, column=1, padx=10, pady=10)
         button_frame_2.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        self.canvas = ctk.CTkCanvas(image_frame, width=800, height=500, bg="white")
 
         try:
             image = Image.open(image_path)
@@ -103,6 +102,7 @@ class App:
 
     def record_api(self, record_input):
         if record_active:
+            self.draw(record_input.char)
             match record_input.char:
                 case "w":
                     record.up()
@@ -123,8 +123,30 @@ class App:
                 case "":
                     self.save()
 
-    def draw(self):
-        
+    def draw(self, record_input):
+        match record_input:
+            case "w":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]-10, width=2, fill="black")
+                last_point[1] -= 10
+            case "a":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]-10, last_point[1], width=2, fill="black")
+                last_point[0] -= 10
+            case "s":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]+10, width=2, fill="black")
+                last_point[1] += 10
+            case "d":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]+10, last_point[1], width=2, fill="black")
+                last_point[0] += 10
+            case "q":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]-5, last_point[1], width=2, fill="black")
+                last_point[0] -= 5
+            case "e":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]+5, last_point[1], width=2, fill="black")
+                last_point[0] += 5
+            case "x":
+                self.canvas.create_rectangle(last_point[0]-5, last_point[1]-5, last_point[0]+5, last_point[1]+5, width=2, outline="black")
+            case _:
+                pass
         pass
 
     def on_closing(self):
