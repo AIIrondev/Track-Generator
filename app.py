@@ -18,7 +18,7 @@ logo_path = config["logo_path"]
 __version__ = config["version"]
 button_name = config["button_names"]
 
-last_point = [0, 0]
+last_point = [717, 495]
 points = {}
 
 class App:
@@ -133,22 +133,24 @@ class App:
         match record_input:
             case "w":
                 self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]-10, width=2, fill="black")
-                last_point[1] -= 10
+                last_point[1] -= 50
             case "a":
                 self.canvas.create_line(last_point[0], last_point[1], last_point[0]-10, last_point[1], width=2, fill="black")
-                last_point[0] -= 10
+                last_point[0] -= 50
             case "s":
                 self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]+10, width=2, fill="black")
-                last_point[1] += 10
+                last_point[1] += 50
             case "d":
                 self.canvas.create_line(last_point[0], last_point[1], last_point[0]+10, last_point[1], width=2, fill="black")
-                last_point[0] += 10
+                last_point[0] += 50
             case "q":
                 self.canvas.create_line(last_point[0], last_point[1], last_point[0]-5, last_point[1], width=2, fill="black")
-                last_point[0] -= 5
+                last_point[0] -= 20
+                last_point[1] -= 20
             case "e":
                 self.canvas.create_line(last_point[0], last_point[1], last_point[0]+5, last_point[1], width=2, fill="black")
-                last_point[0] += 5
+                last_point[0] += 20
+                last_point[1] -= 20
             case "x":
                 self.canvas.create_rectangle(last_point[0]-5, last_point[1]-5, last_point[0]+5, last_point[1]+5, width=2, outline="black")
             case _:
