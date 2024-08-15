@@ -225,9 +225,27 @@ class Menu_right:
         with open("Data/config/path.txt", "a") as f:
             f.write("5|")
 
-class draw:
-    def line():
-        print("Line button clicked")
+class Display_path:
+    def __init__(self):
+        self.app = tk.Tk()
+        self.app.title("Path")
+        self.app.geometry("500x500")
+        self.app.resizable(False, False)
+        self.app.iconbitmap(logo_path)
+        self.display_path()
+        self.app.mainloop()
+
+    def display_path(self):
+        pass
+
+    def load_path(self):
+        with open("Data\config\path.txt", "r") as f:
+            path = f.read()
+
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.app.destroy()
+            exit(0)
 
 class Menu_down:
     def save():
