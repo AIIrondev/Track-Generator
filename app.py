@@ -69,41 +69,41 @@ class App:
         self.canvas.create_oval(700, 490, 730, 500, fill="red", tags="point")
 
         def button_callback(button_number):
-            print(f"Button {button_number} clicked")
             match button_number:
                 case 1:
-                    Menu_right.record()
+                    if record_active:
+                        Menu_right.stop()
+                    else:
+                        Menu_right.record()
                 case 2:
                     Menu_right.play()
                 case 3:
-                    Menu_right.stop()
-                case 4:
                     Menu_right.pause()
-                case 5:
+                case 4:
                     Menu_right.rewind()
-                case 6:
+                case 5:
                     Menu_right.split()
-                case 7:
+                case 6:
                     Menu_down.save()
-                case 8:
+                case 7:
                     Menu_down.load()
-                case 9:
+                case 8:
                     Menu_down.new()
-                case 10:
+                case 9:
                     Menu_down.compile()
-                case 11:
+                case 10:
                     Menu_down.settings()
-                case 12:
+                case 11:
                     Menu_down.help()
                 case _:
                     print("Invalid button number")
 
-        for i in range(6):
+        for i in range(5):
             button = ctk.CTkButton(button_frame_1, text=button_name[i], command=lambda i=i: button_callback(i+1))
             button.pack(padx=10, pady=5)
 
         for i in range(6):
-            button = ctk.CTkButton(button_frame_2, text=button_name[i+6], command=lambda i=i: button_callback(i+6+1))
+            button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
 
     def record_api(self, record_input):
@@ -219,7 +219,7 @@ class Menu_right:
             pass
 
     def rewind():
-        print("Rewind button clicked")
+        Display_path()
 
     def split():
         with open("Data/config/path.txt", "a") as f:
@@ -236,11 +236,46 @@ class Display_path:
         self.app.mainloop()
 
     def display_path(self):
-        pass
+        self.frame = tk.Frame(self.app)
+        self.frame.pack(fill=tk.BOTH, expand=True)
 
-    def load_path(self):
+        # Create a canvas and a scrollbar
+        canvas = tk.Canvas(self.frame)
+        scrollbar = tk.Scrollbar(self.frame, orient=tk.VERTICAL, command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas)
+
+        # Configure the canvas
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(
+                scrollregion=canvas.bbox("all")
+            )
+        )
+
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        # Pack the canvas and scrollbar
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         with open("Data\config\path.txt", "r") as f:
             path = f.read()
+        for i in path.split("|"):
+            match i:
+                case "1":
+                    tk.Label(canvas, text="Up").pack()
+                case "2":
+                    tk.Label(canvas, text="Left").pack()
+                case "3":
+                    tk.Label(canvas, text="Down").pack()
+                case "4":
+                    tk.Label(canvas, text="Right").pack()
+                case "5":
+                    tk.Label(canvas, text="Left Half").pack()
+                case "6":
+                    tk.Label(canvas, text="Right Half").pack()
+                case "7":
+                    tk.Label(canvas, text="New Section").pack()
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
