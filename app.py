@@ -80,7 +80,7 @@ class App:
                 case 3:
                     Menu_right.pause()
                 case 4:
-                    Menu_right.rewind()
+                    self.clear_canvas()
                 case 5:
                     Menu_right.split()
                 case 6:
@@ -122,6 +122,10 @@ class App:
                     record.left_half()
                 case "e":
                     record.right_half()
+                case "y":
+                    record.left_half_down()
+                case "c":
+                    record.right_half_down()
                 case "x":
                     record.split()
                 case "":
@@ -129,35 +133,51 @@ class App:
                 case "":
                     self.save()
 
+    def clear_canvas(self):
+        self.canvas.delete("all")
+        self.last_point = [717, 495]
+
     def draw(self, record_input):
         match record_input:
             case "w":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]-10, width=2, fill="black")
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]-50, width=2, fill="black")
                 last_point[1] -= 50
             case "a":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0]-10, last_point[1], width=2, fill="black")
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]-50, last_point[1], width=2, fill="black")
                 last_point[0] -= 50
             case "s":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]+10, width=2, fill="black")
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]+50, width=2, fill="black")
                 last_point[1] += 50
             case "d":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0]+10, last_point[1], width=2, fill="black")
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]+50, last_point[1], width=2, fill="black")
                 last_point[0] += 50
             case "q":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0]-5, last_point[1], width=2, fill="black")
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]-20, last_point[1]-20, width=2, fill="black")
                 last_point[0] -= 20
                 last_point[1] -= 20
             case "e":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0]+5, last_point[1], width=2, fill="black")
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]+20, last_point[1]-20, width=2, fill="black")
                 last_point[0] += 20
                 last_point[1] -= 20
+            case "y":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]-20, last_point[1]+20, width=2, fill="black")
+                last_point[0] -= 20
+                last_point[1] += 20
+            case "c":
+                self.canvas.create_line(last_point[0], last_point[1], last_point[0]+20, last_point[1]+20, width=2, fill="black")
+                last_point[0] += 20
+                last_point[1] += 20
             case "x":
-                self.canvas.create_rectangle(last_point[0]-5, last_point[1]-5, last_point[0]+5, last_point[1]+5, width=2, outline="black")
+                self.canvas.create_rectangle(last_point[0]-5, last_point[1]-5, last_point[0]+5, last_point[1]+5, width=2, outline="blue")
             case _:
                 pass
 
     def on_closing(self):
-        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        if messagebox.askokcancel("Quit", "Do you want to save?"):
+            save()
+            self.root.destroy()
+            exit(0)
+        else:
             self.root.destroy()
             exit(0)
 
@@ -187,6 +207,12 @@ class record:
     def right_half():
         with open("Data/config/path.txt", "a") as f:
             f.write("6|")
+    def left_half_down():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("8|")
+    def right_half_down():
+        with open("Data/config/path.txt", "a") as f:
+            f.write("9|")
     def split():
         with open("Data/config/path.txt", "a") as f:
             f.write("7|")
@@ -201,7 +227,7 @@ class Menu_right:
             record_active = True
 
     def play():
-        print("Play button clicked")
+        Display_path()
 
     def stop():
         global record_active
@@ -218,9 +244,7 @@ class Menu_right:
             record_active = False
         else:
             pass
-
-    def rewind():
-        Display_path()
+        
 
     def split():
         with open("Data/config/path.txt", "a") as f:
