@@ -42,6 +42,8 @@ class App:
         image_label.pack()
 
     def start_draw(self, event):
+        self.line_new = self.canvas.create_line(60,40,60,50, fill="black")
+        self.quadrat = self.canvas.create_rectangle(50, 50, 100, 100, fill="red")
         self.line = self.canvas.create_line(event.x, event.y, event.x, event.y, fill="black")
 
     def draw(self, event):
@@ -51,16 +53,6 @@ class App:
 
     def end_draw(self, event):
         self.line = None
-
-    def export_canvas(self):
-        # Get the canvas coordinates
-        x = self.canvas.winfo_rootx()
-        y = self.canvas.winfo_rooty()
-        x1 = x + self.canvas.winfo_width()
-        y1 = y + self.canvas.winfo_height()
-
-        # Capture the canvas content
-        ImageGrab.grab().crop((x, y, x1, y1)).save("canvas_export.png")
 
 
 if __name__ == "__main__":

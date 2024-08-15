@@ -31,6 +31,9 @@ class App:
         self.root.mainloop()
 
     def trackgerator(self):
+        self.canvas = ctk.CTkCanvas(self.root, width=800, height=500, bg="white")
+        self.canvas.grid(row=0, column=0, padx=10, pady=10)
+
         ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}", text_color="blue").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
         image_frame = ctk.CTkFrame(self.root)
@@ -115,6 +118,10 @@ class App:
                     self.on_closing()
                 case "":
                     self.save()
+
+    def draw(self):
+        
+        pass
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
@@ -213,6 +220,7 @@ class Menu_down:
             #webbrowser("https://website.github.com")
         else:
             pass
+
 
 if __name__ == '__main__':
     record.initialise()
