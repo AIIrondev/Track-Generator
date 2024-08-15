@@ -153,7 +153,6 @@ class App:
                 self.canvas.create_rectangle(last_point[0]-5, last_point[1]-5, last_point[0]+5, last_point[1]+5, width=2, outline="black")
             case _:
                 pass
-        pass
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
@@ -239,12 +238,10 @@ class Display_path:
         self.frame = tk.Frame(self.app)
         self.frame.pack(fill=tk.BOTH, expand=True)
 
-        # Create a canvas and a scrollbar
         canvas = tk.Canvas(self.frame)
         scrollbar = tk.Scrollbar(self.frame, orient=tk.VERTICAL, command=canvas.yview)
+        
         scrollable_frame = tk.Frame(canvas)
-
-        # Configure the canvas
         scrollable_frame.bind(
             "<Configure>",
             lambda e: canvas.configure(
@@ -254,28 +251,28 @@ class Display_path:
 
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
-
-        # Pack the canvas and scrollbar
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        with open("Data\config\path.txt", "r") as f:
+
+        with open("Data/config/path.txt", "r") as f:
             path = f.read()
+
         for i in path.split("|"):
             match i:
                 case "1":
-                    tk.Label(canvas, text="Up").pack()
+                    tk.Label(scrollable_frame, text="Up").pack()
                 case "2":
-                    tk.Label(canvas, text="Left").pack()
+                    tk.Label(scrollable_frame, text="Left").pack()
                 case "3":
-                    tk.Label(canvas, text="Down").pack()
+                    tk.Label(scrollable_frame, text="Down").pack()
                 case "4":
-                    tk.Label(canvas, text="Right").pack()
+                    tk.Label(scrollable_frame, text="Right").pack()
                 case "5":
-                    tk.Label(canvas, text="Left Half").pack()
+                    tk.Label(scrollable_frame, text="Left Half").pack()
                 case "6":
-                    tk.Label(canvas, text="Right Half").pack()
+                    tk.Label(scrollable_frame, text="Right Half").pack()
                 case "7":
-                    tk.Label(canvas, text="New Section").pack()
+                    tk.Label(scrollable_frame, text="New Section").pack()
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
