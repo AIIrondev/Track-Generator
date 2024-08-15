@@ -17,6 +17,9 @@ logo_path = config["logo_path"]
 __version__ = config["version"]
 button_name = config["button_names"]
 
+last_point = [0, 0]
+points = {}
+
 class App:
     global record_active
     def __init__(self):
@@ -55,6 +58,7 @@ class App:
             print(f"Error: Cannot identify image file at {image_path}")
             return
 
+        self.canvas.create_image(0, 0, anchor="nw", image=photo_image)
         image_label = ctk.CTkLabel(image_frame, image=photo_image)
         image_label.image = photo_image
         image_label.pack()

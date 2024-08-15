@@ -11,12 +11,34 @@ class App:
         self.image_frame = ttk.Frame(root)
         self.image_frame.pack()
 
-        # Load and display the image
-        self.load_image("Data/images/trackgenerator.png")
+        # Load the image
+        self.image_path = "Data/images/trackgerator.png"
+        self.image = self.load_image(self.image_path)
 
+        if self.image:
+            # Create a canvas for drawing
+            self.canvas = tk.Canvas(root, width=self.image.width(), height=self.image.height())
+            self.canvas.pack()
+
+            # Display the image on the canvas
+            self.canvas.create_image(0, 0, anchor=tk.NW, image=self.image)
+
+            # Bind mouse events to the canvas
+            self.canvas.bind("<Button-1>", self.start_draw)
+            self.canvas.bind("<B1-Motion>", self.draw)
+            self.canvas.bind("<ButtonRelease-1>", self.end_draw)
+
+            self.line = None
+        else:
+            print("Failed to load image. Exiting.")
+            self.root.destroy()
+        
         # Create a canvas for drawing
-        self.canvas = tk.Canvas(root, width=500, height=500, bg="white")
+        self.canvas = tk.Canvas(root, width=self.image.width(), height=self.image.height())
         self.canvas.pack()
+        
+        # Display the image on the canvas
+        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.image)
 
         # Bind mouse events to the canvas
         self.canvas.bind("<Button-1>", self.start_draw)
