@@ -61,9 +61,6 @@ class App:
             print(f"Error: Cannot identify image file at {image_path}")
             return
 
-        self.photo_image = ImageTk.PhotoImage(resized_image)
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo_image, tags="background")
-
         self.canvas.create_oval(700, 490, 730, 500, fill="red", tags="point")
 
         def button_callback(button_number):
@@ -76,7 +73,7 @@ class App:
                 case 2:
                     Menu_right.play()
                 case 3:
-                    Menu_right.pause()
+                    Menu_right.module()
                 case 4:
                     self.clear_canvas()
                 case 5:
@@ -88,10 +85,8 @@ class App:
                 case 8:
                     Menu_down.new()
                 case 9:
-                    Menu_down.compile()
-                case 10:
                     Menu_down.settings()
-                case 11:
+                case 10:
                     Menu_down.help()
                 case _:
                     print("Invalid button number")
@@ -100,7 +95,7 @@ class App:
             button = ctk.CTkButton(button_frame_1, text=button_name[i], command=lambda i=i: button_callback(i+1))
             button.pack(padx=10, pady=5)
 
-        for i in range(6):
+        for i in range(5):
             button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
             button.pack(side="left", padx=10, pady=5)
 
@@ -108,28 +103,22 @@ class App:
         if record_active:
             match record_input.char:
                 case "w":
-                    with open("Data/config/path.txt", "a") as f:
-                        f.write("1|")
+                    record.up()
                     self.drive_forward(50)
                 case "s":
-                    with open("Data/config/path.txt", "a") as f:
-                        f.write("3|")
+                    record.down()
                     self.drive_backward(50)
                 case "a":
-                    with open("Data/config/path.txt", "a") as f:
-                        f.write("2|")
+                    record.left()
                     self.rotate(90)
                 case "d":
-                    with open("Data/config/path.txt", "a") as f:
-                        f.write("4|")
+                    record.right()
                     self.rotate(-90)
                 case "q":
-                    with open("Data/config/path.txt", "a") as f:
-                        f.write("5|")
+                    record.left_half()
                     self.rotate(15)
                 case "e":
-                    with open("Data/config/path.txt", "a") as f:
-                        f.write("6|")
+                    record.right_half()
                     self.rotate(-15)
                 case "x":
                     self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
@@ -140,6 +129,18 @@ class App:
         self.canvas.delete("all")
         self.last_point = [717, 495]
         self.orientation = 0
+        try:
+            image = Image.open(image_path)
+            resized_image = image.resize((800, 500))
+            self.photo_image = ImageTk.PhotoImage(resized_image)
+            self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo_image, tags="background")
+        except FileNotFoundError:
+            print(f"Error: File not found at {image_path}")
+            return
+        except UnidentifiedImageError:
+            print(f"Error: Cannot identify image file at {image_path}")
+            return
+        self.canvas.create_oval(700, 490, 730, 500, fill="red", tags="point")
 
     def drive_forward(self, distance):
         rad = math.radians(self.orientation)
@@ -193,12 +194,6 @@ class record:
     def right_half():
         with open("Data/config/path.txt", "a") as f:
             f.write("6|")
-    def left_half_down():
-        with open("Data/config/path.txt", "a") as f:
-            f.write("8|")
-    def right_half_down():
-        with open("Data/config/path.txt", "a") as f:
-            f.write("9|")
     def split():
         with open("Data/config/path.txt", "a") as f:
             f.write("7|")
@@ -217,20 +212,17 @@ class Menu_right:
 
     def stop():
         global record_active
-        print("Stop button clicked")
         if record_active:
             record_active = False
         else:
             pass
 
-    def pause():
-        global record_active
-        print("Pause button clicked")
-        if record_active:
-            record_active = False
+    def module():
+        global module_active
+        if module_active:
+            module_active = False
         else:
-            pass
-        
+            module_active = True
 
     def split():
         with open("Data/config/path.txt", "a") as f:

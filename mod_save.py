@@ -26,8 +26,11 @@ with open(conf_file, "r") as file:
 class Save:
     def __init__(self):
         self.filepath = "Data/config/path.txt"
-        with open(self.filepath, "r") as f:
-            self.content = f.read()
+        if os.path.exists(self.filepath):
+            with open(self.filepath, "r") as f:
+                self.content = f.read()
+        else:
+            exit("Error: The file path.txt does not exist.")
         self.content = self.content.split("|")
         self.convert_to_scsp()
         self.compile("Data/temp/temp.scsp")
