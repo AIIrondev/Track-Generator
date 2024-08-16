@@ -73,6 +73,7 @@ class App:
                 case 2:
                     Menu_right.play()
                 case 3:
+                    #TODO: The module function has to be finisched
                     Menu_right.module()
                 case 4:
                     self.clear_canvas()
@@ -81,7 +82,7 @@ class App:
                 case 6:
                     Menu_down.save()
                 case 7:
-                    Menu_down.load()
+                    self.load()
                 case 8:
                     Menu_down.new()
                 case 9:
@@ -160,7 +161,12 @@ class App:
         self.orientation = (self.orientation + angle) % 360
 
     def load(self):
-        path_file = filedialog.askopenfilename(initialdir="Data/config", title="Select file", filetypes=(("Text files", "*.txt")))
+        #TODO: Make this function work
+        path_file = filedialog.askopenfilename(
+            initialdir="Data/config",
+            title="Select file",
+            filetypes=[("Text files", "*.txt")]
+        )
         with open(path_file, "r") as f:
             path = f.read()
         for i in path.split("|"):
@@ -192,11 +198,8 @@ class App:
 class record:
     global record_active
     def initialise():
-        if os.path.exists("Data/config/path.txt"):
-            os.remove("Data/config/path.txt")
-        else:
-            with open("Data/config/path.txt", "w") as f:
-                f.write("")
+        with open("Data/config/path.txt", "w") as f:
+            f.write("")
     def up():
         with open("Data/config/path.txt", "a") as f:
             f.write("1|")
