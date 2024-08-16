@@ -34,11 +34,7 @@ class App:
         self.trackgerator()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.bind("<KeyPress>", self.record_api)
-        self.root.bind("<Button-1>", self.printcoords)
         self.root.mainloop()
-
-    def printcoords(self, event):
-        print(event.x, event.y)
 
     def trackgerator(self):
 
