@@ -8,3 +8,7 @@ You can generate a path based on a the way you drive in the the app.
 1. Why exists this program?
 2. How does the program work?
 3. What does this program do?
+
+## Why?
+
+This is the continuation of the Ekips Prime Pro Language.
