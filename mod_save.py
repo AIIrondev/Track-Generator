@@ -44,18 +44,14 @@ class Save:
                         f.write("drive(5)\n")
                     case "2":
                         f.write("tank(180)\n")
-                        f.write("drive(5)\n")
                     case "3":
                         f.write("drive(-5)\n")
                     case "4":
                         f.write("tank(-180)\n")
-                        f.write("drive(5)\n")
                     case "5":
-                        f.write("tank(90)\n")
-                        f.write("drive(5)\n")
+                        f.write("tank(30)\n")
                     case "6":
-                        f.write("tank(-90)\n")
-                        f.write("drive(5)\n")
+                        f.write("tank(-30)\n")
                     case "7":
                         f.write(f"generate_ab({generate_ab_function_names[generate_ab_function]})\n")
                         generate_ab_function += 1

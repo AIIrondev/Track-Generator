@@ -25,6 +25,7 @@ class App:
     global record_active
     def __init__(self):
         self.last_point = [717, 495]
+        self.orientation = 90
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
         self.root.geometry("1000x470")
@@ -109,71 +110,57 @@ class App:
 
     def record_api(self, record_input):
         if record_active:
-            self.draw(record_input.char)
             match record_input.char:
                 case "w":
-                    record.up()
-                case "a":
-                    record.left()
+                    with open("Data/config/path.txt", "a") as f:
+                        f.write("1|")
+                    self.drive_forward(50)
                 case "s":
-                    record.down()
+                    with open("Data/config/path.txt", "a") as f:
+                        f.write("3|")
+                    self.drive_backward(50)
+                case "a":
+                    with open("Data/config/path.txt", "a") as f:
+                        f.write("2|")
+                    self.rotate(90)
                 case "d":
-                    record.right()
+                    with open("Data/config/path.txt", "a") as f:
+                        f.write("4|")
+                    self.rotate(-90)
                 case "q":
-                    record.left_half()
+                    with open("Data/config/path.txt", "a") as f:
+                        f.write("5|")
+                    self.rotate(15)
                 case "e":
-                    record.right_half()
-                case "y":
-                    record.left_half_down()
-                case "c":
-                    record.right_half_down()
+                    with open("Data/config/path.txt", "a") as f:
+                        f.write("6|")
+                    self.rotate(-15)
                 case "x":
-                    record.split()
-                case "":
-                    self.on_closing()
-                case "":
-                    self.save()
+                    self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
+                case _:
+                    pass
 
     def clear_canvas(self):
         self.canvas.delete("all")
         self.last_point = [717, 495]
+        self.orientation = 0
 
-    def draw(self, record_input):
-        match record_input:
-            case "w":
-                self.canvas.create_line(self.last_point[0], self.last_point[1], self.last_point[0], self.last_point[1]-50, width=2, fill="black")
-                self.last_point[1] -= 50
-            case "a":
-                self.rotate_and_draw(90)
-            case "s":
-                self.canvas.create_line(self.last_point[0], self.last_point[1], self.last_point[0], self.last_point[1]+50, width=2, fill="black")
-                self.last_point[1] += 50
-            case "d":
-                self.rotate_and_draw(-90)
-            case "q":
-                self.rotate_and_draw(45)
-            case "e":
-                self.rotate_and_draw(-45)
-            case "x":
-                self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
-            case _:
-                pass
-
-    def rotate_and_draw(self, angle):
-        rad = math.radians(angle)
-        cos_val = math.cos(rad)
-        sin_val = math.sin(rad)
-
-        new_x = self.last_point[0] + 50 * cos_val
-        new_y = self.last_point[1] + 50 * sin_val
-
-        #TODO: add self.last_point insted of last_point
-        
-        print(f"Last point: {self.last_point}")
-        print(f"New point: {new_x}, {new_y}")
+    def drive_forward(self, distance):
+        rad = math.radians(self.orientation)
+        new_x = self.last_point[0] + distance * math.cos(rad)
+        new_y = self.last_point[1] - distance * math.sin(rad)
         self.canvas.create_line(self.last_point[0], self.last_point[1], new_x, new_y, width=2, fill="black")
-
         self.last_point = [new_x, new_y]
+
+    def drive_backward(self, distance):
+        rad = math.radians(self.orientation)
+        new_x = self.last_point[0] - distance * math.cos(rad)
+        new_y = self.last_point[1] + distance * math.sin(rad)
+        self.canvas.create_line(self.last_point[0], self.last_point[1], new_x, new_y, width=2, fill="black")
+        self.last_point = [new_x, new_y]
+
+    def rotate(self, angle):
+        self.orientation = (self.orientation + angle) % 360
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to save?"):
