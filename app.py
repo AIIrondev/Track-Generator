@@ -283,6 +283,29 @@ class Display_path:
             self.app.destroy()
             exit(0)
 
+class settings:
+    def __init__(self):
+        self.app = tk.Tk()
+        self.app.title("Settings")
+        self.app.geometry("500x500")
+        self.app.resizable(False, False)
+        self.app.iconbitmap(logo_path)
+        self.settings()
+        self.app.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.app.mainloop()
+
+    def settings(self):
+        tk.Label(self.app, text="Settings").pack()
+        tk.Button(self.app, text="Update", command=self.update).pack()
+
+    def update(self):
+        pass
+
+    def onclosing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.app.destroy()
+            exit(0)
+
 class Menu_down:
     def save():
         save()
