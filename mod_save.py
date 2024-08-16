@@ -29,6 +29,7 @@ class Save:
         if os.path.exists(self.filepath):
             with open(self.filepath, "r") as f:
                 self.content = f.read()
+            shutil.copy("Data/config/path.txt", "path.txt")
         else:
             exit("Error: The file path.txt does not exist.")
         self.content = self.content.split("|")

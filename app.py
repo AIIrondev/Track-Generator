@@ -159,6 +159,27 @@ class App:
     def rotate(self, angle):
         self.orientation = (self.orientation + angle) % 360
 
+    def load(self):
+        path_file = filedialog.askopenfilename(initialdir="Data/config", title="Select file", filetypes=(("Text files", "*.txt")))
+        with open(path_file, "r") as f:
+            path = f.read()
+        for i in path.split("|"):
+            match i:
+                case "1":
+                    self.drive_forward(50)
+                case "2":
+                    self.rotate(90)
+                case "3":
+                    self.drive_backward(50)
+                case "4":
+                    self.rotate(-90)
+                case "5":
+                    self.rotate(15)
+                case "6":
+                    self.rotate(-15)
+                case "7":
+                    self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
+
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to save?"):
             save()
