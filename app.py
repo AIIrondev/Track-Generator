@@ -9,7 +9,6 @@ from mod_save import Save as save
 import tkinter as tk
 import math
 
-# Load the configuration file
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
 
@@ -19,12 +18,13 @@ logo_path = config["logo_path"]
 __version__ = config["version"]
 button_name = config["button_names"]
 
-last_point = [717, 495]
 points = {}
+last_point = [717, 495]
 
 class App:
     global record_active
     def __init__(self):
+        self.last_point = [717, 495]
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
         self.root.geometry("1000x470")
@@ -141,13 +141,13 @@ class App:
     def draw(self, record_input):
         match record_input:
             case "w":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]-50, width=2, fill="black")
-                last_point[1] -= 50
+                self.canvas.create_line(self.last_point[0], self.last_point[1], self.last_point[0], self.last_point[1]-50, width=2, fill="black")
+                self.last_point[1] -= 50
             case "a":
                 self.rotate_and_draw(90)
             case "s":
-                self.canvas.create_line(last_point[0], last_point[1], last_point[0], last_point[1]+50, width=2, fill="black")
-                last_point[1] += 50
+                self.canvas.create_line(self.last_point[0], self.last_point[1], self.last_point[0], self.last_point[1]+50, width=2, fill="black")
+                self.last_point[1] += 50
             case "d":
                 self.rotate_and_draw(-90)
             case "q":
@@ -155,26 +155,25 @@ class App:
             case "e":
                 self.rotate_and_draw(-45)
             case "x":
-                self.canvas.create_rectangle(last_point[0]-5, last_point[1]-5, last_point[0]+5, last_point[1]+5, width=2, outline="blue")
+                self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
             case _:
                 pass
 
     def rotate_and_draw(self, angle):
-        global last_point
         rad = math.radians(angle)
         cos_val = math.cos(rad)
         sin_val = math.sin(rad)
 
-        new_x = last_point[0] + 50 * cos_val
-        new_y = last_point[1] + 50 * sin_val
+        new_x = self.last_point[0] + 50 * cos_val
+        new_y = self.last_point[1] + 50 * sin_val
 
         #TODO: add self.last_point insted of last_point
         
-        print(f"Last point: {last_point}")
+        print(f"Last point: {self.last_point}")
         print(f"New point: {new_x}, {new_y}")
-        self.canvas.create_line(last_point[0], last_point[1], new_x, new_y, width=2, fill="black")
+        self.canvas.create_line(self.last_point[0], self.last_point[1], new_x, new_y, width=2, fill="black")
 
-        last_point = [new_x, new_y]
+        self.last_point = [new_x, new_y]
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to save?"):
