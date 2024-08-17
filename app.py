@@ -64,6 +64,7 @@ class App:
         self.canvas.create_oval(700, 490, 730, 500, fill="red", tags="point")
 
         def button_callback(button_number):
+            global record_active
             match button_number:
                 case 1:
                     if record_active:
@@ -101,6 +102,8 @@ class App:
             button.pack(side="left", padx=10, pady=5)
 
     def record_api(self, record_input):
+        global module_active
+        global record_active
         if record_active:
             match record_input.char:
                 case "w":
@@ -124,7 +127,26 @@ class App:
                 case "x":
                     self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
                 case _:
-                    pass
+                    if module_active:
+                        match record_input.char:
+                            case "1":
+                                record.module._1()
+                            case "2":
+                                record.module._2()
+                            case "3":
+                                record.module._3()
+                            case "4":
+                                record.module._4()
+                            case "5":
+                                record.module._5()
+                            case "6":
+                                record.module._6()
+                            case "7":
+                                record.module._7()
+                            case "8":
+                                record.module._8()
+                            case "9":
+                                record.module._9()
 
     def clear_canvas(self):
         self.canvas.delete("all")
@@ -221,6 +243,23 @@ class record:
     def split():
         with open("Data/config/path.txt", "a") as f:
             f.write("7|")
+    class module:
+        def _1():
+            # +40
+            with open("Data/config/path.txt", "a") as f:
+                f.write("8|")
+        def _2():
+            # -40
+            with open("Data/config/path.txt", "a") as f:
+                f.write("9|")
+        def _3():
+            # +120
+            with open("Data/config/path.txt", "a") as f:
+                f.write("10|")
+        def _4():
+            # -120
+            with open("Data/config/path.txt", "a") as f:
+                f.write("11|")
 
 class Menu_right:
     def record():

@@ -59,6 +59,14 @@ class Save:
                     case "7":
                         f.write(f"generate_ab({generate_ab_function_names[generate_ab_function]})\n")
                         generate_ab_function += 1
+                    case "8":
+                        f.write("module(40)\n")
+                    case "9":
+                        f.write("module(-40)\n")
+                    case "10":
+                        f.write("module(120)\n")
+                    case "11":
+                        f.write("module(-120)\n")
             f.write("main.init()\nswitch()\ncalibrate()\nai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})\n")
             f.write("switch()\n")
             f.write("call(new_function)\n")
