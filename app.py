@@ -75,7 +75,6 @@ class App:
                 case 2:
                     Menu_right.play()
                 case 3:
-                    #TODO: The module function has to be finisched
                     Menu_right.module()
                 case 4:
                     self.clear_canvas()
@@ -132,12 +131,16 @@ class App:
                         match record_input.char:
                             case "1":
                                 record.module._1()
+                                self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="green")
                             case "2":
                                 record.module._2()
+                                self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="green")
                             case "3":
                                 record.module._3()
+                                self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="green")
                             case "4":
                                 record.module._4()
+                                self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="green")
                             case _:
                                 pass
 
@@ -178,15 +181,17 @@ class App:
     def load(self):
         #TODO: Make this function work
         path_file = filedialog.askopenfilename(
-            initialdir="Data/config",
+            initialdir="/",
             title="Select file",
             filetypes=[("Text files", "*.txt")]
         )
         with open(path_file, "r") as f:
             path = f.read()
         for i in path.split("|"):
+            print(i)
             match i:
                 case "1":
+                    print("Up")
                     self.drive_forward(50)
                 case "2":
                     self.rotate(90)
