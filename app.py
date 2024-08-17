@@ -13,6 +13,7 @@ with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
 
 record_active = False
+module_active = False
 image_path = config["image_path"]
 logo_path = config["logo_path"]
 __version__ = config["version"]
@@ -137,16 +138,8 @@ class App:
                                 record.module._3()
                             case "4":
                                 record.module._4()
-                            case "5":
-                                record.module._5()
-                            case "6":
-                                record.module._6()
-                            case "7":
-                                record.module._7()
-                            case "8":
-                                record.module._8()
-                            case "9":
-                                record.module._9()
+                            case _:
+                                pass
 
     def clear_canvas(self):
         self.canvas.delete("all")
@@ -272,13 +265,6 @@ class Menu_right:
 
     def play():
         Display_path()
-
-    def stop():
-        global record_active
-        if record_active:
-            record_active = False
-        else:
-            pass
 
     def module():
         global module_active
