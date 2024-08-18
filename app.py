@@ -85,7 +85,7 @@ class App:
                 case 7:
                     self.load()
                 case 8:
-                    Menu_down.new()
+                    self.clear_canvas()
                 case 9:
                     Menu_down.settings()
                 case 10:
@@ -108,10 +108,10 @@ class App:
             match record_input.char:
                 case "w":
                     record.up()
-                    self.drive_forward(50)
+                    self.drive_forward(25)
                 case "s":
                     record.down()
-                    self.drive_backward(50)
+                    self.drive_backward(25)
                 case "a":
                     record.left()
                     self.rotate(90)

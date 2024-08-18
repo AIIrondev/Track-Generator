@@ -55,7 +55,7 @@ class Save:
                     case "5":
                         f.write("tank(30)\n")
                     case "6":
-                        f.write("tank(-30)\n")
+                        f.write("tank(-3s0)\n")
                     case "7":
                         f.write(f"generate_ab({generate_ab_function_names[generate_ab_function]})\n")
                         generate_ab_function += 1
