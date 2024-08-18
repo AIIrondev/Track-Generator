@@ -6,7 +6,9 @@ import shutil
 import json
 
 GITHUB_REPO = 'aiirondev/Track-Generator'
-LOCAL_VERSION_FILE = 'version.txt'
+with open('config/trackgenerator.config.json') as f:
+    config = json.load(f)
+LOCAL_VERSION_FILE = confid['version_file']
 UPDATE_FOLDER = 'update_files/'
 API_URL = f'https://api.github.com/repos/{GITHUB_REPO}/releases/latest'
 DOWNLOAD_PATH = 'update.zip'
