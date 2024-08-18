@@ -5,7 +5,7 @@ import zipfile
 import shutil
 import json
 
-GITHUB_REPO = 'your_username/your_repo'
+GITHUB_REPO = 'aiirondev/Track-Generator'
 LOCAL_VERSION_FILE = 'version.txt'
 UPDATE_FOLDER = 'update_files/'
 API_URL = f'https://api.github.com/repos/{GITHUB_REPO}/releases/latest'
