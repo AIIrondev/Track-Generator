@@ -79,7 +79,7 @@ class App:
                 case 4:
                     self.clear_canvas()
                 case 5:
-                    Menu_right.split()
+                    record.split()
                 case 6:
                     Menu_down.save()
                 case 7:
@@ -125,6 +125,7 @@ class App:
                     record.right_half()
                     self.rotate(-15)
                 case "x":
+                    record.split()
                     self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
                 case _:
                     if module_active:
@@ -191,19 +192,25 @@ class App:
             print(i)
             match i:
                 case "1":
-                    print("Up")
+                    record.up()
                     self.drive_forward(50)
                 case "2":
+                    record.left()
                     self.rotate(90)
                 case "3":
+                    record.down()
                     self.drive_backward(50)
                 case "4":
+                    record.right()
                     self.rotate(-90)
                 case "5":
+                    record.left_half()
                     self.rotate(15)
                 case "6":
+                    record.right_half()
                     self.rotate(-15)
                 case "7":
+                    record.split()
                     self.canvas.create_rectangle(self.last_point[0]-5, self.last_point[1]-5, self.last_point[0]+5, self.last_point[1]+5, width=2, outline="blue")
 
     def on_closing(self):
@@ -277,10 +284,6 @@ class Menu_right:
             module_active = False
         else:
             module_active = True
-
-    def split():
-        with open("Data/config/path.txt", "a") as f:
-            f.write("5|")
 
 class Display_path:
     def __init__(self):
