@@ -16,7 +16,8 @@ record_active = False
 module_active = False
 image_path = config["image_path"]
 logo_path = config["logo_path"]
-__version__ = config["version"]
+file_path_save = config["save_path"]
+_version__ = config["version"]
 button_name = config["button_names"]
 
 points = {}
@@ -225,45 +226,45 @@ class App:
 class record:
     global record_active
     def initialise():
-        with open("Data/config/path.txt", "w") as f:
+        with open(file_path_save, "w") as f:
             f.write("")
     def up():
-        with open("Data/config/path.txt", "a") as f:
+        with open(file_path_save, "a") as f:
             f.write("1|")
     def down():
-        with open("Data/config/path.txt", "a") as f:
+        with open(file_path_save, "a") as f:
             f.write("3|")
     def left():
-        with open("Data/config/path.txt", "a") as f:
+        with open(file_path_save, "a") as f:
             f.write("2|")
     def right():
-        with open("Data/config/path.txt", "a") as f:
+        with open(file_path_save, "a") as f:
             f.write("4|")
     def left_half():
-        with open("Data/config/path.txt", "a") as f:
+        with open(file_path_save, "a") as f:
             f.write("5|")
     def right_half():
-        with open("Data/config/path.txt", "a") as f:
+        with open(file_path_save, "a") as f:
             f.write("6|")
     def split():
-        with open("Data/config/path.txt", "a") as f:
+        with open(file_path_save, "a") as f:
             f.write("7|")
     class module:
         def _1():
             # +40
-            with open("Data/config/path.txt", "a") as f:
+            with open(file_path_save, "a") as f:
                 f.write("8|")
         def _2():
             # -40
-            with open("Data/config/path.txt", "a") as f:
+            with open(file_path_save, "a") as f:
                 f.write("9|")
         def _3():
             # +120
-            with open("Data/config/path.txt", "a") as f:
+            with open(file_path_save, "a") as f:
                 f.write("10|")
         def _4():
             # -120
-            with open("Data/config/path.txt", "a") as f:
+            with open(file_path_save, "a") as f:
                 f.write("11|")
 
 class Menu_right:
@@ -315,7 +316,7 @@ class Display_path:
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-        with open("Data/config/path.txt", "r") as f:
+        with open(file_path_save, "r") as f:
             path = f.read()
 
         for i in path.split("|"):
