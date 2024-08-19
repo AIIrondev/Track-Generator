@@ -17,7 +17,7 @@ module_active = False
 image_path = config["image_path"]
 logo_path = config["logo_path"]
 file_path_save = config["save_path"]
-_version__ = config["version"]
+__version__ = config["version"]
 button_name = config["button_names"]
 
 points = {}
@@ -185,7 +185,7 @@ class App:
         path_file = filedialog.askopenfilename(
             initialdir="/",
             title="Select file",
-            filetypes=[("Text files", "*.txt")]
+            filetypes=[("Trackgenerator", "*.tg")]
         )
         with open(path_file, "r") as f:
             path = f.read()
