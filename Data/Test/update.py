@@ -5,12 +5,11 @@ import zipfile
 import shutil
 import json
 
-GITHUB_REPO = 'aiirondev/Track-Generator'
 with open('config/trackgenerator.config.json') as f:
     config = json.load(f)
-LOCAL_VERSION_FILE = confid['version_file']
+LOCAL_VERSION_FILE = config['version_file']
 UPDATE_FOLDER = 'update_files/'
-API_URL = f'https://api.github.com/repos/{GITHUB_REPO}/releases/latest'
+API_URL = f'https://api.github.com/repos/aiirondev/Track-Generator/releases/latest'
 DOWNLOAD_PATH = 'Trackgenerator.zip'
 
 def get_local_version():
@@ -51,6 +50,7 @@ def download_update(asset_url):
     response = requests.get(asset_url, stream=True)
 
     if response.status_code == 200:
+        print("Update is getting downloaded...")
         with open(DOWNLOAD_PATH, 'wb') as f:
             shutil.copyfileobj(response.raw, f)
         print("Update downloaded.")

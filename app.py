@@ -20,25 +20,28 @@ __version__ = config["version"]
 button_name = config["button_names"]
 
 points = {}
-last_point = [717, 495]
+last_point = [718, 495]
 
 class App:
     global record_active
     def __init__(self):
-        self.last_point = [717, 495]
+        self.last_point = [718, 495]
         self.orientation = 90
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
-        self.root.geometry("1000x470")
+        self.root.geometry("820x470")
         self.root.resizable(False, False)
         self.root.iconbitmap(logo_path)
         self.trackgerator()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.bind("<KeyPress>", self.record_api)
+        self.root.bind("<Button-1>", self.display_coor)
         self.root.mainloop()
 
-    def trackgerator(self):
+    def display_coor(self, input_new):
+        print(input_new)
 
+    def trackgerator(self):
         ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}", text_color="blue").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
         image_frame = ctk.CTkFrame(self.root)
@@ -91,7 +94,7 @@ class App:
                 case _:
                     print("Invalid button number")
 
-        for i in range(5):
+        for i in range(4):
             button = ctk.CTkButton(button_frame_1, text=button_name[i], command=lambda i=i: button_callback(i+1))
             button.pack(padx=10, pady=5)
 
@@ -106,10 +109,10 @@ class App:
             match record_input.char:
                 case "w":
                     record.up()
-                    self.drive_forward(25)
+                    self.drive_forward(40)
                 case "s":
                     record.down()
-                    self.drive_backward(25)
+                    self.drive_backward(40)
                 case "a":
                     record.left()
                     self.rotate(90)
@@ -359,23 +362,11 @@ class Menu_down:
     def save():
         save()
 
-    def load():
-        print("Load button clicked")
-    
-    def new():
-        print("New button clicked")
-    
-    def compile():
-        print("Compile button clicked")
-    
-    def settings():
-        print("Settings button clicked")
-        
     def help():
         print("Help button clicked")
         if messagebox.askokcancel("Help", "If you click ok youre browser will open the help Website for you."):
             pass
-            #webbrowser("https://website.github.com")
+            #webbrowser("https://github.com")
         else:
             pass
 
