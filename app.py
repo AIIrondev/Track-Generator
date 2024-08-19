@@ -345,7 +345,6 @@ class settings:
         self.app.resizable(False, False)
         self.app.iconbitmap(logo_path)
         self.settings()
-        self.app.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.app.mainloop()
 
     def settings(self):
@@ -355,10 +354,6 @@ class settings:
     def update(self):
         pass
 
-    def onclosing(self):
-        if messagebox.askokcancel("Quit", "Do you want to quit?"):
-            self.app.destroy()
-            exit(0)
 
 class Menu_down:
     def save():

@@ -11,10 +11,9 @@ with open('config/trackgenerator.config.json') as f:
 LOCAL_VERSION_FILE = confid['version_file']
 UPDATE_FOLDER = 'update_files/'
 API_URL = f'https://api.github.com/repos/{GITHUB_REPO}/releases/latest'
-DOWNLOAD_PATH = 'update.zip'
+DOWNLOAD_PATH = 'Trackgenerator.zip'
 
 def get_local_version():
-    """Get the local app version from version.txt."""
     try:
         with open(LOCAL_VERSION_FILE, 'r') as f:
             return f.read().strip()
@@ -22,7 +21,6 @@ def get_local_version():
         return "0.0.0"
 
 def get_latest_release():
-    """Fetch the latest release information from the GitHub API."""
     response = requests.get(API_URL)
     if response.status_code == 200:
         return response.json()
@@ -31,7 +29,6 @@ def get_latest_release():
         return None
 
 def check_for_update():
-    """Check if there is a new update available."""
     local_version = get_local_version()
     latest_release = get_latest_release()
 
@@ -50,7 +47,6 @@ def check_for_update():
         return None
 
 def download_update(asset_url):
-    """Download the update ZIP file from the GitHub release."""
     print(f"Downloading update from: {asset_url}")
     response = requests.get(asset_url, stream=True)
 
@@ -64,7 +60,6 @@ def download_update(asset_url):
         return False
 
 def apply_update():
-    """Extract the downloaded update ZIP and apply the files."""
     print("Applying update...")
     try:
         with zipfile.ZipFile(DOWNLOAD_PATH, 'r') as zip_ref:
@@ -83,7 +78,6 @@ def apply_update():
         return False
 
 def restart_application():
-    """Restart the application."""
     print("Restarting application...")
     python = sys.executable
     os.execl(python, python, *sys.argv)
@@ -93,7 +87,7 @@ def main():
 
     if latest_release:
         for asset in latest_release['assets']:
-            if asset['name'] == 'update.zip':
+            if asset['name'] == 'Trackgenerator.zip':
                 asset_url = asset['browser_download_url']
                 if download_update(asset_url):
                     if apply_update():
