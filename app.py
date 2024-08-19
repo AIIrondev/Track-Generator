@@ -77,18 +77,16 @@ class App:
                 case 3:
                     Menu_right.module()
                 case 4:
-                    self.clear_canvas()
-                case 5:
                     record.split()
-                case 6:
+                case 5:
                     Menu_down.save()
-                case 7:
+                case 6:
                     self.load()
-                case 8:
+                case 7:
                     self.clear_canvas()
+                case 8:
+                    settings()
                 case 9:
-                    Menu_down.settings()
-                case 10:
                     Menu_down.help()
                 case _:
                     print("Invalid button number")
@@ -98,7 +96,7 @@ class App:
             button.pack(padx=10, pady=5)
 
         for i in range(5):
-            button = ctk.CTkButton(button_frame_2, text=button_name[i+5], command=lambda i=i: button_callback(i+5+1))
+            button = ctk.CTkButton(button_frame_2, text=button_name[i+4], command=lambda i=i: button_callback(i+4+1))
             button.pack(side="left", padx=10, pady=5)
 
     def record_api(self, record_input):
@@ -180,7 +178,6 @@ class App:
         self.orientation = (self.orientation + angle) % 360
 
     def load(self):
-        #TODO: Make this function work
         path_file = filedialog.askopenfilename(
             initialdir="/",
             title="Select file",

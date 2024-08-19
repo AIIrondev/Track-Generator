@@ -2,5 +2,5 @@
     "image_path": "Data/images/trackgenerator.png",
     "logo_path": "Data/images/logo.ico",
     "version": "0.1.0",
-    "button_names": ["Record/Stop", "Play", "Module", "Rewind", "Split","Save", "Load", "New", "Settings", "Help"]
+    "button_names": ["Record/Stop", "Play", "Module", "Split","Save", "Load", "New", "Settings", "Help"]
 }
