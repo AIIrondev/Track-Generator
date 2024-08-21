@@ -103,7 +103,7 @@ class Save:
         print(f"Writing {function} function...")
         file_name = file.split(".")
         file_name = file_name[0]
-        with open(f"{os.path.join(os.getcwd() + "\\Data\\temp", file_name)}.py", "a") as f:
+        with open(f"{os.path.join(os.getcwd(), 'Data', 'temp', file_name)}.py", "a") as f:
             match function:
                 case "log":
                     if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
@@ -288,7 +288,7 @@ class Save:
         file_name = file.split(".")[0]
         file_dir = os.getcwd() + "\\Data\\temp\\llsp3"
         os.makedirs(file_dir, exist_ok=True)
-        with open(f"{os.path.join("Data\\temp", file_name)}.py", "w") as f:
+        with open(f"{os.path.join('Data', 'temp', file_name)}.py", "w") as f:
             f.write("")
         for line in content_compile:
             function, value = self.get_active_function(line)

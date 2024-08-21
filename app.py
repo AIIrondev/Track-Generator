@@ -4,10 +4,15 @@ from tkinter import filedialog
 from tkinter import messagebox
 from PIL import Image, ImageTk, UnidentifiedImageError
 import os
-import webbrowser
 from mod_save import Save as save
 import tkinter as tk
 import math
+import ctypes
+
+try:
+    ctypes.windll.shcore.SetProcessDpiAwareness(1)
+except Exception as e:
+    print(f"Failed to set DPI awareness: {e}")
 
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
@@ -30,17 +35,16 @@ class App:
         self.orientation = 90
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
-        self.root.geometry("820x470")
+        self.root.geometry("1200x700")
         self.root.resizable(False, False)
         self.root.iconbitmap(logo_path)
         self.trackgerator()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.bind("<KeyPress>", self.record_api)
-        self.root.bind("<Button-1>", self.display_coor)
         self.root.mainloop()
 
-    def display_coor(self, input_new):
-        print(input_new)
+    #def display_coor(self, input_new):
+    #    print(input_new)
 
     def trackgerator(self):
         ctk.CTkLabel(self.root, text=f"Trackgerator v{__version__}", text_color="blue").grid(row=2, column=0, columnspan=2, padx=10, pady=10)
@@ -270,11 +274,14 @@ class record:
 class Menu_right:
     def record():
         global record_active
-        print("Record button clicked")
         if record_active:
             pass
         else:
             record_active = True
+
+    def stop():
+        global record_active
+        record_active = False
 
     def play():
         Display_path()
