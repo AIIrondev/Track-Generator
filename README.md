@@ -23,3 +23,6 @@ This Project is Python based and uses the following libraries:
 4. os 
 5. shutil 
 6. json
+7. ctype
+8. datetime
+9. zipfile
