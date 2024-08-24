@@ -26,3 +26,7 @@ This Project is Python based and uses the following libraries:
 7. ctype
 8. datetime
 9. zipfile
+
+## What?
+
+This Programm 
