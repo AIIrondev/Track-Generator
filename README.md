@@ -13,7 +13,8 @@ It is planed to support a controller.
 ## Why?
 
 This is the continuation of the Ekips Prime Pro Language and the Algorithm that 
-I programmed.
+I programmed. Further more the Programm shoud help the user to use the Spike Prime 
+Environment.
 
 ## How?
 
