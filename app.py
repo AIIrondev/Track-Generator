@@ -8,11 +8,7 @@ from mod_save import Save as save
 import tkinter as tk
 import math
 import ctypes
-
-try:
-    ctypes.windll.shcore.SetProcessDpiAwareness(1)
-except Exception as e:
-    print(f"Failed to set DPI awareness: {e}")
+import platform
 
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
@@ -30,12 +26,24 @@ last_point = [718, 495]
 
 class App:
     global record_active
+    def get_windows_version(self):
+        if platform.system() == "Windows":
+            release = platform.release()
+            if release == "10":
+                return "1200x700"
+            elif release == "11":
+                return "805x450"
+            else:
+                return "1200x700"
+        else:
+            return "1200x700"
+
     def __init__(self):
         self.last_point = [718, 495]
         self.orientation = 90
         self.root = ctk.CTk()
         self.root.title("Trackgerator")
-        self.root.geometry("1200x700")
+        self.root.geometry(self.get_windows_version())
         self.root.resizable(False, False)
         self.root.iconbitmap(logo_path)
         self.trackgerator()
