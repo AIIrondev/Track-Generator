@@ -5,11 +5,11 @@ import zipfile
 import shutil
 import json
 
-with open('config/trackgenerator.config.json') as f:
+with open('Data/config/trackgenerator.config.json') as f:
     config = json.load(f)
-LOCAL_VERSION_FILE = config['version_file']
+LOCAL_VERSION_FILE = config['version']
 UPDATE_FOLDER = 'update_files/'
-API_URL = f'https://api.github.com/repos/aiirondev/Track-Generator/releases/latest'
+API_URL = 'https://api.github.com/repos/AIIrondev/Track-Generator/releases/latest'
 DOWNLOAD_PATH = 'Trackgenerator.zip'
 
 def get_local_version():
@@ -20,12 +20,16 @@ def get_local_version():
         return "0.0.0"
 
 def get_latest_release():
-    response = requests.get(API_URL)
-    if response.status_code == 200:
+    try:
+        response = requests.get(API_URL)
+        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
         return response.json()
-    else:
-        print(f"Failed to fetch release info: {response.status_code}")
-        return None
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+        print(f"Response content: {response.content}")
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    return None
 
 def check_for_update():
     local_version = get_local_version()
