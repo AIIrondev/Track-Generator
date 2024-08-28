@@ -13,6 +13,12 @@ import platform
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
 
+LOCAL_VERSION_FILE = config['version']
+print(LOCAL_VERSION_FILE)
+UPDATE_FOLDER = 'update_files/'
+API_URL = 'https://api.github.com/repos/AIIrondev/Track-Generator/releases/latest'
+DOWNLOAD_PATH = 'Trackgenerator.zip'
+
 record_active = False
 module_active = False
 image_path = config["image_path"]
@@ -384,13 +390,13 @@ class Menu_down:
             pass
 
 class Update:
-    def get_local_version():
+    def get_local_version(self):
         try:
             return LOCAL_VERSION_FILE
         except FileNotFoundError:
             return "0.0.0"
 
-    def get_latest_release():
+    def get_latest_release(self):
         try:
             response = requests.get(API_URL)
             response.raise_for_status()
@@ -403,8 +409,8 @@ class Update:
         return None
 
     def check_for_update():
-        local_version = get_local_version()
-        latest_release = get_latest_release()
+        local_version = self.get_local_version()
+        latest_release = self.get_latest_release()
 
         if latest_release:
             latest_version = latest_release['tag_name']
@@ -420,7 +426,7 @@ class Update:
             print("No update information found.")
             return None
 
-    def download_update(asset_url):
+    def download_update(self, asset_url):
         print(f"Downloading update from: {asset_url}")
         response = requests.get(asset_url, stream=True)
 
@@ -434,7 +440,7 @@ class Update:
             print(f"Failed to download update: {response.status_code}")
             return False
 
-    def apply_update():
+    def apply_update(self):
         print("Applying update...")
         try:
             with zipfile.ZipFile(DOWNLOAD_PATH, 'r') as zip_ref:
@@ -452,22 +458,22 @@ class Update:
             print(f"Failed to apply update: {e}")
             return False
 
-    def restart_application():
+    def restart_application(self):
         print("Restarting application...")
         python = sys.executable
         os.execl(python, python, *sys.argv)
 
-    def __init__():
-        latest_release = check_for_update()
+    def __init__(self):
+        latest_release = self.check_for_update()
 
         if latest_release:
             for asset in latest_release['assets']:
                 if asset['name'] == 'Trackgenerator.zip':
                     asset_url = asset['browser_download_url']
-                    if download_update(asset_url):
-                        if apply_update():
+                    if self.download_update(asset_url):
+                        if self.apply_update():
                             print("Update complete. Restarting now...")
-                            restart_application()
+                            self.restart_application()
                     break
             else:
                 print("Update.zip file not found in the release assets.")
