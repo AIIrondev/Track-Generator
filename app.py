@@ -9,6 +9,10 @@ import tkinter as tk
 import math
 import ctypes
 import platform
+import sys
+import requests
+import zipfile
+import shutil
 
 with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
@@ -408,7 +412,7 @@ class Update:
             print(f"Other error occurred: {err}")
         return None
 
-    def check_for_update():
+    def check_for_update(self):
         local_version = self.get_local_version()
         latest_release = self.get_latest_release()
 
