@@ -18,7 +18,6 @@ with open('Data/config/trackgenerator.config.json', 'r') as f:
     config = json.load(f)
 
 LOCAL_VERSION_FILE = config['version']
-print(LOCAL_VERSION_FILE)
 UPDATE_FOLDER = 'update_files/'
 API_URL = 'https://api.github.com/repos/AIIrondev/Track-Generator/releases/latest'
 DOWNLOAD_PATH = 'Trackgenerator.zip'
