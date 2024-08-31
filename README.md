@@ -19,23 +19,22 @@ Environment.
 ## How?
 
 This Project is Python based and uses the following libraries:
-'''python
-import json
-import customtkinter as ctk
-from tkinter import filedialog
-from tkinter import messagebox
-from PIL import Image, ImageTk, UnidentifiedImageError
-import os
-from mod_save import Save as save
-import tkinter as tk
-import math
-import ctypes
-import platform
-import sys
-import requests
-import zipfile
-import shutil
-'''
+
+1. json
+2. customtkinter as ctk
+3. tkinter import filedialog
+4. tkinter import messagebox
+5. PIL import Image, ImageTk, UnidentifiedImageError
+6. os
+7. mod_save import Save as save
+8. tkinter as tk
+9. math
+10. ctypes
+11. platform
+12. sys
+13. requests
+14. zipfile
+15. shutil
 
 ## What?
 
