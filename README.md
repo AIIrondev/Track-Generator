@@ -6,9 +6,10 @@ It is planed to support a controller.
 
 ## Content
 
-1. [Why exists this program?](Why?)
-2. [How does the program work?](How?)
-3. [What does this program do?](What?)
+1. [Why exists this program?](#why)
+2. [How does the program work?](#how)
+3. [What does this program do?](#what)
+4. [How to use this program?](#how-to-use)
 
 ## Why?
 
@@ -38,4 +39,8 @@ This Project is Python based and uses the following libraries:
 
 ## What?
 
-This Programm 
+This Programm is the Track-Generator for the Spike Prime Lego Software. It is build for the better performance is like the Ekips Prime Pro Language. The Programm is based on the Ekips Prime Pro Language and the Algorithm that I programmed. The Programm is a Python based Programm and uses the following libraries: [How?](#how).
+Furthermore the Programm is a GUI based Programm with will improve the user experience and the efficency of the learning curve.
+
+## How to use
+
