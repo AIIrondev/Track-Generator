@@ -6,9 +6,9 @@ It is planed to support a controller.
 
 ## Content
 
-1. [Why exists this program?](#Why?)
-2. [How does the program work?](#How?)
-3. [What does this program do?](#What?)
+1. [Why exists this program?](Why?)
+2. [How does the program work?](How?)
+3. [What does this program do?](What?)
 
 ## Why?
 
