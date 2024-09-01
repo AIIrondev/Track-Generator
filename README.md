@@ -10,12 +10,13 @@ It is planed to support a controller.
 2. [How does the program work?](#how)
 3. [What does this program do?](#what)
 4. [How to use this program?](#how-to-use)
+5. [License](#license)
 
 ## Why?
 
-This is the continuation of the Ekips Prime Pro Language and the Algorithm that 
-I programmed. Further more the Programm shoud help the user to use the Spike Prime 
-Environment.
+This is the continuation of the Ekips Prime Pro Language and the Algorithm that I programmed.
+Further more the Programm shoud help the user to use the Spike Prime Environment.
+It will perform better than the programming laguage of the Spike Prime Software for first time users.
 
 ## How?
 
@@ -44,3 +45,15 @@ Furthermore the Programm is a GUI based Programm with will improve the user expe
 
 ## How to use
 
+1. Download the Programm
+2. De Zip the Programm
+3. Run the app with the Trackgenerator.exe
+4. Follow the instructions in the Programm
+5. Save the file
+6. Open the Spike Prime Software
+7. Import the file
+8. Run the Programm
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
