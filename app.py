@@ -38,6 +38,7 @@ class App:
     def get_windows_version(self):
         if platform.system() == "Windows":
             release = platform.release()
+            print(f"Windows version: {release}")
             if release == "10":
                 return "1200x700"
             elif release == "11":
@@ -313,7 +314,7 @@ class Menu_right:
 class Display_path:
     def __init__(self):
         self.app = tk.Tk()
-        self.app.title("Path")
+        self.app.title("Path Display")
         self.app.geometry("500x500")
         self.app.resizable(False, False)
         self.app.iconbitmap(logo_path)
