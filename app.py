@@ -42,7 +42,7 @@ class App:
             if release == "10":
                 return "1200x700"
             elif release == "11":
-                return "805x450"
+                return "1200x700"
             else:
                 return "1200x700"
         else:
