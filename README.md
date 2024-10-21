@@ -54,6 +54,10 @@ Furthermore the Programm is a GUI based Programm with will improve the user expe
 7. Import the file
 8. Run the Programm
 
+## Questions
+
+If you have anything just write me.
+
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the Apache License - see the [LICENSE.md](LICENSE.md) file for details.
